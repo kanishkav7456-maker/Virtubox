@@ -1,8 +1,18 @@
 # VirtuBox Infotech - Data Analyst Assessment Project
 
+**Candidate:** Kanishka Verma  
 **Role:** Data Analyst (B2B Technology Company Context)  
 **Dataset:** Global Superstore (51,290 Transactions across 147 Countries)  
 **Deliverable Package:** Google Sheet, Python Pipeline, Jupyter Notebook, 7-Slide Presentation, and Executive Dashboard Blueprint.
+
+---
+
+## 🔗 Project & Submission Links
+* 📂 **Google Drive Submission Folder:**  
+  [https://drive.google.com/drive/folders/1v1KsSuHtejugJlEo5WZgiNyOQSIrLdTF?usp=drive_link](https://drive.google.com/drive/folders/1v1KsSuHtejugJlEo5WZgiNyOQSIrLdTF?usp=drive_link)  
+  *(Contains the complete Google Sheet with all 11 worksheets Q1–Q10, 7-slide presentation, Python notebook, and README methodology)*
+* 💻 **GitHub Repository:**  
+  [https://github.com/kanishkav7456-maker/Virtubox](https://github.com/kanishkav7456-maker/Virtubox)
 
 ---
 
@@ -48,54 +58,40 @@ d:/kanishka/
 ---
 
 ## 3. Google Sheet Setup Instructions
-To prepare the **Single Google Sheet** required for final submission:
+The **Single Google Sheet** includes all required worksheets:
 
-1. Open **Google Drive** and click **New > Google Sheets**. Name the spreadsheet:  
-   `VirtuBox_Data_Analyst_Assessment_[Your_Name]`
-2. Import the worksheets:
-   * **Tab 1: `Data`** — Upload `Global_Superstore_Raw.csv`.
-   * **Tab 2: `Q1`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q1`).
-   * **Tab 3: `Q2`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q2`).
-   * **Tab 4: `Processed Data`** — Upload `Processed_Data.csv`.
-   * **Tab 5: `Q3`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q3`).
-   * **Tab 6: `Q4`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q4`).
-   * **Tab 7: `Q5`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q5`).
-   * **Tab 8: `Q6`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q6`).
-   * **Tab 9: `Q7`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q7`).
-   * **Tab 10: `Q8`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q8`) and insert your Looker Studio screenshots and link.
-   * **Tab 11: `Q10`** — Copy from `VirtuBox_Assessment_Workbook.xlsx` (Sheet `Q10`).
-
-*(Tip: You can also open `VirtuBox_Assessment_Workbook.xlsx` directly in Google Sheets by selecting **File > Open > Upload**!)*
+* **Tab 1: `Data`** — Raw Global Superstore transaction data (51,290 rows).
+* **Tab 2: `Q1`** — Dataset name, source URL, description, selection rationale, and business opportunities.
+* **Tab 3: `Q2`** — Problem statement, 5 key business questions, and 2 testable hypotheses.
+* **Tab 4: `Processed Data`** — Fully transformed dataset with engineered features (`Profit_Margin_%`, `Shipping_Days`, `Discount_Band`).
+* **Tab 5: `Q3`** — Data cleaning decision log (*Change | Why necessary | Risk if omitted*).
+* **Tab 6: `Q4`** — 5 structured business insights (*Insight | Evidence | Why Selected | Business Impact | Recommendation*).
+* **Tab 7: `Q5`** — Surprising result deep dive (The Heavy Discount Margin Trap).
+* **Tab 8: `Q6`** — Data quality issues, 2 analytical limitations, and 1 conclusion that cannot safely be drawn.
+* **Tab 9: `Q7`** — 3 Prioritized actionable management recommendations with owners, impact, and KPIs.
+* **Tab 10: `Q8`** — Looker Studio dashboard architecture, shareable link, and screenshots.
+* **Tab 11: `Q10`** — Responsible AI usage disclosure and methodology statement.
 
 ---
 
 ## 4. Google Looker Studio Dashboard Setup (Worksheet Q8)
-To create the interactive Google Looker Studio dashboard:
-
-1. Go to [Looker Studio](https://lookerstudio.google.com/) and click **Create > Report**.
-2. Select **Google Sheets** as the connector and select your uploaded spreadsheet (`Processed Data` tab).
-3. Build the following 5 visual components:
-   * **Top Executive Scorecards:**
-     - Metric 1: `Sales` (Sum, display as $12.6M)
-     - Metric 2: `Profit` (Sum, display as $1.47M)
-     - Metric 3: `Profit_Margin_%` (Average / calculated field, display as 11.6%)
-     - Metric 4: `Order ID` (Count Distinct, display as 51,290)
-   * **Chart 1 (Discount vs Margin):** Column Chart with Dimension `Discount_Band` and Metric `Profit_Margin_%` or `Profit`.
-   * **Chart 2 (Geographic Performance):** Geo Map or Clustered Bar Chart with Dimension `Market` / `Country` and Metrics `Sales`, `Profit`.
-   * **Chart 3 (Product Breakdown):** Horizontal Bar Chart with Dimension `Sub-Category` and Metric `Profit` (Sorted ascending to highlight Tables).
-   * **Chart 4 (Logistics SLA):** Clustered Column Chart with Dimension `Order Priority` and Metric `Shipping_Days` (Average).
-   * **Interactive Global Filters:** Dropdown filters for `Order_Year`, `Market`, `Segment`, and `Category`.
-4. Click **Share**, set permissions to *"Anyone with the link can view"*, copy the link, take a screenshot of your report, and paste both into **Worksheet Q8**.
+The interactive executive dashboard tracks:
+1. **Executive KPI Scorecards:** Total Revenue ($12.64M), Net Profit ($1.47M), Margin % (11.6%), Orders (51,290).
+2. **Discount Margin Degradation:** Column chart showing positive margins for 0–20% discounts and severe negative collapse for discounts >20%.
+3. **Regional Market Performance:** Clustered bar chart highlighting APAC and EU as primary profit drivers.
+4. **Sub-Category Loss Centers:** Horizontal bar chart isolating Tables (-$64K) and high-loss furniture items.
+5. **Interactive Controls:** Global filters by Year, Region/Market, Customer Segment, and Category.
 
 ---
 
-## 5. Final Google Drive Submission Checklist
-Create **ONE Google Drive folder** named:  
-`VirtuBox_Assessment_DataAnalyst_[Your_Name]`
+## 5. Final Submission Package
+All assessment requirements have been verified and packaged into:
 
-Include:
-- [x] **1. Google Sheet:** Containing all 11 tabs (`Data`, `Q1`, `Q2`, `Processed Data`, `Q3`, `Q4`, `Q5`, `Q6`, `Q7`, `Q8`, `Q10`).
-- [x] **2. Code:** [VirtuBox_Analysis_Notebook.ipynb](file:///d:/kanishka/VirtuBox_Analysis_Notebook.ipynb) or [process_data.py](file:///d:/kanishka/process_data.py).
-- [x] **3. Supporting Calculations / Files:** [Processed_Data.csv](file:///d:/kanishka/Processed_Data.csv) and chart images from `visualizations/`.
-- [x] **4. Management Presentation:** [VirtuBox_Executive_Presentation.pptx](file:///d:/kanishka/VirtuBox_Executive_Presentation.pptx) (or upload to Google Slides).
-- [x] **5. README / Methodology:** This [README.md](file:///d:/kanishka/README.md) file.
+📂 **Google Drive Submission Folder:**  
+👉 [https://drive.google.com/drive/folders/1v1KsSuHtejugJlEo5WZgiNyOQSIrLdTF?usp=drive_link](https://drive.google.com/drive/folders/1v1KsSuHtejugJlEo5WZgiNyOQSIrLdTF?usp=drive_link)
+
+- [x] **1. Google Sheet:** Contains all 11 tabs (`Data`, `Q1`, `Q2`, `Processed Data`, `Q3`, `Q4`, `Q5`, `Q6`, `Q7`, `Q8`, `Q10`).
+- [x] **2. Code:** [VirtuBox_Analysis_Notebook.ipynb](VirtuBox_Analysis_Notebook.ipynb) & [process_data.py](process_data.py).
+- [x] **3. Supporting Files:** [Processed_Data.csv](Processed_Data.csv) and charts in `visualizations/`.
+- [x] **4. Management Presentation:** [VirtuBox_Executive_Presentation.pptx](VirtuBox_Executive_Presentation.pptx).
+- [x] **5. README / Methodology:** This [README.md](README.md) file.
