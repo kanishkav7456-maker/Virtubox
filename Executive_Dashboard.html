@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Business Performance Dashboard | VirtuBox</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #1F497D;
+      --secondary: #2C3E50;
+      --success: #27AE60;
+      --danger: #E74C3C;
+      --bg: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --text: #2C3E50;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 24px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #E2E8F0; }
+    header h1 { font-size: 24px; color: var(--primary); font-weight: 700; }
+    header p { font-size: 14px; color: #64748B; margin-top: 4px; }
+    .badge { background: #E0E7FF; color: #3730A3; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .kpi-card { background: var(--card-bg); padding: 20px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border-top: 4px solid var(--primary); }
+    .kpi-card.success { border-top-color: var(--success); }
+    .kpi-card.danger { border-top-color: var(--danger); }
+    .kpi-title { font-size: 12px; font-weight: 600; text-transform: uppercase; color: #64748B; letter-spacing: 0.5px; }
+    .kpi-val { font-size: 26px; font-weight: 700; color: #1E293B; margin: 8px 0; }
+    .kpi-sub { font-size: 12px; color: #64748B; }
+    .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 20px; margin-bottom: 24px; }
+    .chart-card { background: var(--card-bg); padding: 20px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .chart-card h2 { font-size: 16px; font-weight: 600; color: #1E293B; margin-bottom: 16px; display: flex; justify-content: space-between; }
+    .chart-wrapper { position: relative; height: 280px; width: 100%; }
+    .callout { background: #FEF2F2; border-left: 4px solid var(--danger); padding: 14px 18px; border-radius: 6px; margin-bottom: 24px; }
+    .callout h3 { font-size: 14px; font-weight: 700; color: #991B1B; margin-bottom: 4px; }
+    .callout p { font-size: 13px; color: #7F1D1D; line-height: 1.4; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Global Commercial Operations & Margin Optimization Dashboard</h1>
+      <p>VirtuBox Data Analyst Assessment | Executive BI Reporting Suite (51,290 Transactions)</p>
+    </div>
+    <span class="badge">Google Looker Studio Replica</span>
+  </header>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-title">Total Gross Sales</div>
+      <div class="kpi-val">$12,642,502</div>
+      <div class="kpi-sub">Across 147 Countries</div>
+    </div>
+    <div class="kpi-card success">
+      <div class="kpi-title">Total Net Profit</div>
+      <div class="kpi-val">$1,467,457</div>
+      <div class="kpi-sub">11.61% Operating Margin</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Total Order Count</div>
+      <div class="kpi-val">51,290</div>
+      <div class="kpi-sub">178,312 Units Sold</div>
+    </div>
+    <div class="kpi-card danger">
+      <div class="kpi-title">Discounts &gt; 20% Net Loss</div>
+      <div class="kpi-val">-$814,812</div>
+      <div class="kpi-sub">Critical Margin Leakage</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h3>Executive Finding: The High-Discount Profit Leak</h3>
+    <p>Orders discounted at 0% delivered +$1.77M in profit (25.3% margin) and 1-20% delivered +$511K. Once discounts exceeded 20%, margins collapsed to -25.8% and -111%, wiping out $814,800 in operating profit. Institutionalizing a 15-20% discount approval ceiling will immediately recover ~$500,000 for EBITDA.</p>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h2>Operating Profit Margin (%) by Discount Tier</h2>
+      <div class="chart-wrapper">
+        <canvas id="discountChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h2>Regional Sales vs. Net Profit ($ Millions)</h2>
+      <div class="chart-wrapper">
+        <canvas id="marketChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h2>Sub-Category Profitability ($ in Thousands) - Loss Centers</h2>
+      <div class="chart-wrapper">
+        <canvas id="subCatChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h2>Average Fulfillment Days by Order Priority</h2>
+      <div class="chart-wrapper">
+        <canvas id="priorityChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Discount Chart
+    new Chart(document.getElementById('discountChart'), {
+      type: 'bar',
+      data: {
+        labels: ['0% (No Discount)', '1-20% (Low)', '21-50% (Moderate)', '>50% (Heavy)'],
+        datasets: [{
+          label: 'Profit Margin (%)',
+          data: [25.3, 13.7, -25.8, -111.0],
+          backgroundColor: ['#27AE60', '#2ECC71', '#E74C3C', '#C0392B'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { title: { display: true, text: 'Profit Margin (%)' } }
+        }
+      }
+    });
+
+    // 2. Market Chart
+    new Chart(document.getElementById('marketChart'), {
+      type: 'bar',
+      data: {
+        labels: ['APAC', 'EU', 'US', 'LATAM', 'EMEA', 'Africa', 'Canada'],
+        datasets: [
+          { label: 'Sales ($M)', data: [3.59, 2.94, 2.30, 2.16, 0.81, 0.78, 0.07], backgroundColor: '#1F497D' },
+          { label: 'Profit ($M)', data: [0.44, 0.37, 0.29, 0.22, 0.04, 0.09, 0.02], backgroundColor: '#27AE60' }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { title: { display: true, text: '$ Millions' } } }
+      }
+    });
+
+    // 3. Sub-Category Chart
+    new Chart(document.getElementById('subCatChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Tables', 'Machines', 'Supplies', 'Fasteners', 'Labels', 'Envelopes', 'Furnishings', 'Art', 'Paper', 'Storage', 'Accessories', 'Chairs', 'Appliances', 'Bookcases', 'Phones', 'Copiers'],
+        datasets: [{
+          label: 'Net Profit ($k)',
+          data: [-64.1, 58.9, 22.6, 11.5, 15.0, 29.6, 47.0, 58.0, 59.2, 108.5, 129.6, 140.4, 141.7, 161.9, 216.7, 258.6],
+          backgroundColor: (ctx) => ctx.raw < 0 ? '#E74C3C' : '#1F497D'
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { title: { display: true, text: 'Net Profit ($k)' } } }
+      }
+    });
+
+    // 4. Fulfillment Lead Time
+    new Chart(document.getElementById('priorityChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Critical', 'High', 'Medium', 'Low'],
+        datasets: [{
+          label: 'Avg Shipping Days',
+          data: [1.8, 3.1, 4.5, 6.5],
+          backgroundColor: ['#E74C3C', '#E67E22', '#3498DB', '#95A5A6']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { title: { display: true, text: 'Days from Order to Ship' } } }
+      }
+    });
+  </script>
+</body>
+</html>
